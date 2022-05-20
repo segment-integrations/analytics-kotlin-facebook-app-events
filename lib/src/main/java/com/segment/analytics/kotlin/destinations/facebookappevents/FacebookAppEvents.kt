@@ -42,14 +42,13 @@ class FacebookAppEvents(
             this.settings = settings.destinationSettings(key)
             if (type == Plugin.UpdateType.Initial) {
                 var limitedDataUse = this.settings?.limitedDataUse
-                if (limitedDataUse === true) {
+                if (limitedDataUse == true) {
                     FacebookSdk.setDataProcessingOptions(arrayOf<String>("LDU"), 0, 0)
                 } else {
                     FacebookSdk.setDataProcessingOptions(null)
                 }
             }
         }
-        Analytics.debugLogsEnabled = true
     }
 
     override fun track(payload: TrackEvent): BaseEvent? {
@@ -61,13 +60,13 @@ class FacebookAppEvents(
         val mappedProperties = properties.toContent()
         var count = 0
 
-        for (property in mappedProperties) {
+        for ((key, value) in mappedProperties) {
             // Facebook has a limit of 25 properties
             if (count < 25) {
-                if (property.value is String) {
-                    params.putString(property.key, property.value as String).also { count+=1 }
-                } else if (property.value is Int) {
-                    params.putInt(property.key, property.value as Int).also { count+=1 }
+                if (value is String) {
+                    params.putString(key, value).also { count++ }
+                } else if (value is Int) {
+                    params.putInt(key, value).also { count++ }
                 }
             }
         }
@@ -87,7 +86,7 @@ class FacebookAppEvents(
     }
 
     override fun screen(payload: ScreenEvent): BaseEvent? {
-        if (this.settings?.trackScreenEvents === true) {
+        if (this.settings?.trackScreenEvents == true) {
             // FB Event Names must be <= 40 characters
             // 'Viewed' and 'Screen' with spaces take up 14
             val truncatedEventName = payload.name.take(26)
