@@ -53,7 +53,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-process:2.4.1")
     implementation("androidx.lifecycle:lifecycle-common-java8:2.4.1")
 
-    implementation("com.facebook.android:facebook-android-sdk:latest.release")
+    implementation("com.facebook.android:facebook-android-sdk:13.2.0")
 
 }
 
