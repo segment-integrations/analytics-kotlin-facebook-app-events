@@ -11,13 +11,15 @@ val VERSION_NAME: String by project
 android {
     compileSdk = 31
     buildToolsVersion = "31.0.0"
+    testOptions.unitTests.isIncludeAndroidResources = true
+
 
     defaultConfig {
         multiDexEnabled = true
         minSdk = 21
         targetSdk = 31
 
-        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("proguard-consumer-rules.pro")
 
         buildConfigField("String", "VERSION_NAME", "\"$VERSION_NAME\"")
@@ -37,6 +39,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+
+
+
 }
 
 dependencies {
@@ -54,7 +59,12 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-common-java8:2.4.1")
 
     implementation("com.facebook.android:facebook-android-sdk:13.2.0")
-
+//    testImplementation ("junit:junit:4.13.2")
+//    testImplementation ("org.robolectric:robolectric:4.8")
+//    testImplementation ("org.mockito:mockito-core:3.+")
+//    testImplementation ("org.powermock:powermock-api-mockito2:2.+")
+//    testImplementation ("org.powermock:powermock-module-junit4-rule-agent:2.+")
+//    testImplementation ("org.powermock:powermock-module-junit4:2.+")
 }
 
 // Partner Dependencies
@@ -63,6 +73,7 @@ dependencies {
 
 // Test Dependencies
 dependencies {
+//    implementation("androidx.test.ext:junit-ktx:1.1.3")
     testImplementation(project(mapOf("path" to ":testapp")))
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.3")
@@ -72,6 +83,7 @@ dependencies {
     testImplementation("io.mockk:mockk:1.12.2")
     testImplementation(platform("org.junit:junit-bom:5.7.2"))
     testImplementation("org.junit.jupiter:junit-jupiter")
+    androidTestImplementation ("org.mockito:mockito-core:3.+")
 
     // Add Roboelectric dependencies.
     testImplementation("org.robolectric:robolectric:4.7.3")
