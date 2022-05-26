@@ -2,51 +2,49 @@ package com.segment.analytics.kotlin.destinations.facebookappevents
 
 import android.content.Context
 import android.os.Bundle
-import com.facebook.FacebookSdk
 import com.facebook.appevents.AppEventsLogger
-import com.segment.analytics.kotlin.core.*
+import com.segment.analytics.kotlin.core.Analytics
+import com.segment.analytics.kotlin.core.Settings
+import com.segment.analytics.kotlin.core.TrackEvent
+import com.segment.analytics.kotlin.core.emptyJsonObject
 import com.segment.analytics.kotlin.core.platform.Plugin
-import io.mockk.*
-import io.mockk.impl.annotations.MockK
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.json.buildJsonObject
 import kotlinx.serialization.json.put
-import org.json.JSONException
-import org.json.JSONObject
-import org.junit.jupiter.api.Assertions
-import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
-import org.mockito.Mockito
-import org.skyscreamer.jsonassert.JSONAssert
-import org.skyscreamer.jsonassert.JSONCompareMode
 import org.junit.runner.RunWith
-import org.powermock.api.mockito.PowerMockito
-import org.powermock.core.classloader.annotations.PrepareForTest
-import org.powermock.modules.junit4.PowerMockRunner
+import org.robolectric.RobolectricTestRunner
+import androidx.test.platform.app.InstrumentationRegistry
+import com.facebook.FacebookSdk
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.mockkObject
+import io.mockk.mockkStatic
+import io.mockk.spyk
+import io.mockk.verify
+import org.junit.Before
+import org.junit.Test
+import org.junit.jupiter.api.Assertions
+import org.robolectric.annotation.Config
 
 
+@RunWith(RobolectricTestRunner::class)
+@Config(manifest = Config.NONE)
 class FacebookAppEventsTests {
 
-    private val mockContext = mockk<Context>(relaxed = true)
     private val  mockEventLogger = mockk<AppEventsLogger>(relaxed = true)
     private lateinit var facebookAppEventsDestination: FacebookAppEvents
-
-
-    @MockK(relaxUnitFun = true)
     lateinit var mockedAnalytics: Analytics
 
-    init {
-        MockKAnnotations.init(this)
-        mockkStatic(FacebookSdk::class)
-        mockkObject(AppEventsLogger.Companion)
-        every { AppEventsLogger.Companion.newLogger(mockContext) } returns mockEventLogger
-    }
+    val mockContext = spyk(InstrumentationRegistry.getInstrumentation().targetContext)
 
-    @BeforeEach
+    @Before
     internal fun setUp() {
         facebookAppEventsDestination = FacebookAppEvents(mockContext)
-        facebookAppEventsDestination.analytics = mockedAnalytics
+        mockkStatic(FacebookSdk::class)
+        mockkObject(AppEventsLogger.Companion)
+        every { AppEventsLogger.Companion.newLogger(any()) } returns mockEventLogger
+//        facebookAppEventsDestination.analytics = mockedAnalytics
     }
 
     @Test
