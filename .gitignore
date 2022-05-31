@@ -7,3 +7,4 @@ build
 .idea
 local.properties
 lib/build
+.DS_STORE

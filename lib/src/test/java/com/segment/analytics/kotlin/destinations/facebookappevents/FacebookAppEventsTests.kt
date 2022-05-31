@@ -96,7 +96,8 @@ class FacebookAppEventsTests {
 
         Assertions.assertNotNull(trackEvent)
         verify {
-            mockEventLogger.logEvent("Food Choice", matchBundle(params))        }
+            mockEventLogger.logEvent("Food Choice", matchBundle(params))
+        }
     }
 
     @Test
