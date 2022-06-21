@@ -1,5 +1,7 @@
 package com.segment.analytics.kotlin.destinations.facebookappevents
 
+/* Copyright 2022 Twilio Inc. */
+
 import android.content.Context
 import android.os.Bundle
 import com.facebook.FacebookSdk
