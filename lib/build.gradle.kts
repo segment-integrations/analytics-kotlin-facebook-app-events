@@ -45,9 +45,9 @@ android {
 }
 
 dependencies {
-    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:1.1.5")
+    coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.0.3")
 
-    implementation("com.segment.analytics.kotlin:android:1.5.0")
+    implementation("com.segment.analytics.kotlin:android:1.10.3")
     implementation("androidx.multidex:multidex:2.0.1")
 
     implementation("androidx.core:core-ktx:1.7.0")
@@ -61,25 +61,25 @@ dependencies {
 }
 // Partner Dependencies
 dependencies {
-    implementation("com.facebook.android:facebook-android-sdk:13.2.0")
+    implementation("com.facebook.android:facebook-android-sdk:16.0.1")
 }
 
 // Test Dependencies
 dependencies {
-    testImplementation("org.junit.jupiter:junit-jupiter:5.7.2")
-    testImplementation("io.mockk:mockk:1.10.6")
+    testImplementation("org.junit.jupiter:junit-jupiter:5.8.2")
+    testImplementation("io.mockk:mockk:1.12.4")
 
     // Add JUnit5 dependencies.
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.7.2")
-    testImplementation("org.junit.jupiter:junit-jupiter-params:5.7.2")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.8.2")
+    testImplementation("org.junit.jupiter:junit-jupiter-params:5.8.2")
 
     // Add JUnit4 legacy dependencies.
     testImplementation("junit:junit:4.13.2")
-    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.7.2")
+    testRuntimeOnly("org.junit.vintage:junit-vintage-engine:5.8.2")
 
     // Add Roboelectric dependencies.
     testImplementation("org.robolectric:robolectric:4.7.3")
-    testImplementation("androidx.test:core:1.4.0")
+    testImplementation("androidx.test:core:1.5.0")
 }
 
 tasks.withType<Test> {
